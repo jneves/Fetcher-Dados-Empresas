@@ -6,7 +6,7 @@ from cookielib import CookieJar
 import sys
 
 dir = "/home/joao/projectos/polvo/repo/"
-dir_save = dir + 'dump/'
+dir_save = dir + '../dump/'
 
 def get_doc(number):
     #make a cookie and redirect handlers
@@ -27,6 +27,7 @@ def get_doc(number):
     f = open(dir_save + str(number) + ".html", "w")
     f.write(page.read())
     f.close()
+    print number
 
 number_from = 0
 if len(sys.argv) > 1:
@@ -37,4 +38,10 @@ if len(sys.argv) > 2:
     number_to = long(sys.argv[2])
 
 for i in range(number_from, number_to+1):
-    get_doc(i)
+    success = False
+    while not success:
+        try:
+            get_doc(i)
+            success = True
+        except Exception:
+            pass
